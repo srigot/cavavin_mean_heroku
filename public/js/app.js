@@ -12,11 +12,11 @@ angular.module("contactsApp", ['ngRoute'])
             })
             .when("/new/vin", {
                 controller: "NewVinController",
-                templateUrl: "contact-form.html"
+                templateUrl: "vin-form.html"
             })
             .when("/vin/:vinId", {
                 controller: "EditVinController",
-                templateUrl: "contact.html"
+                templateUrl: "vin.html"
             })
             .otherwise({
                 redirectTo: "/"
