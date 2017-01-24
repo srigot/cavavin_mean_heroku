@@ -5,91 +5,91 @@ angular.module("contactsApp", ['ngRoute'])
                 templateUrl: "list.html",
                 controller: "ListController",
                 resolve: {
-                    contacts: function(Contacts) {
-                        return Contacts.getContacts();
+                    vins: function(Vins) {
+                        return Vins.getVins();
                     }
                 }
             })
-            .when("/new/contact", {
-                controller: "NewContactController",
+            .when("/new/vin", {
+                controller: "NewVinController",
                 templateUrl: "contact-form.html"
             })
-            .when("/contact/:contactId", {
-                controller: "EditContactController",
+            .when("/vin/:vinId", {
+                controller: "EditVinController",
                 templateUrl: "contact.html"
             })
             .otherwise({
                 redirectTo: "/"
             })
     })
-    .service("Contacts", function($http) {
-        this.getContacts = function() {
-            return $http.get("/contacts").
+    .service("Vins", function($http) {
+        this.getVins = function() {
+            return $http.get("/vins").
                 then(function(response) {
                     return response;
                 }, function(response) {
-                    alert("Error finding contacts.");
+                    alert("Impossible de récupérer les vins.");
                 });
         }
-        this.createContact = function(contact) {
-            return $http.post("/contacts", contact).
+        this.createVins = function(vin) {
+            return $http.post("/vins", vin).
                 then(function(response) {
                     return response;
                 }, function(response) {
-                    alert("Error creating contact.");
+                    alert("Impossible de créer le vin.");
                 });
         }
-        this.getContact = function(contactId) {
-            var url = "/contacts/" + contactId;
+        this.getVin = function(vinId) {
+            var url = "/vins/" + vinId;
             return $http.get(url).
                 then(function(response) {
                     return response;
                 }, function(response) {
-                    alert("Error finding this contact.");
+                    alert("Impossible de trouver le vin.");
                 });
         }
-        this.editContact = function(contact) {
-            var url = "/contacts/" + contact._id;
-            console.log(contact._id);
-            return $http.put(url, contact).
+        this.editVin = function(vin) {
+            var url = "/vins/" + vin._id;
+            console.log(vin._id);
+            return $http.put(url, vin).
                 then(function(response) {
                     return response;
                 }, function(response) {
-                    alert("Error editing this contact.");
+                    alert("Impossible de mettre à jour le vin.");
                     console.log(response);
                 });
         }
-        this.deleteContact = function(contactId) {
-            var url = "/contacts/" + contactId;
+        this.deleteVin = function(vinId) {
+            var url = "/vins/" + vinId;
             return $http.delete(url).
                 then(function(response) {
                     return response;
                 }, function(response) {
-                    alert("Error deleting this contact.");
+                    alert("Impossible de supprimer le vin.");
                     console.log(response);
                 });
         }
     })
-    .controller("ListController", function(contacts, $scope) {
-        $scope.contacts = contacts.data;
+    .controller("ListController", function(vins, $scope) {
+        $scope.vins = vins.data;
     })
-    .controller("NewContactController", function($scope, $location, Contacts) {
+    .controller("NewVinController", function($scope, $location, Vins) {
         $scope.back = function() {
             $location.path("#/");
         }
 
-        $scope.saveContact = function(contact) {
-            Contacts.createContact(contact).then(function(doc) {
-                var contactUrl = "/contact/" + doc.data._id;
+        $scope.saveVin = function(vin) {
+            Vins.createVin(vin).then(function(doc) {
+                var contactUrl = "/vin/" + doc.data._id;
                 $location.path(contactUrl);
             }, function(response) {
                 alert(response);
             });
         }
     })
-    .controller("EditContactController", function($scope, $routeParams, Contacts) {
-        Contacts.getContact($routeParams.contactId).then(function(doc) {
-            $scope.contact = doc.data;
+    .controller("EditVinController", function($scope, $routeParams, Vins) {
+        Vins.getVin($routeParams.vinId).then(function(doc) {
+            $scope.vin = doc.data;
         }, function(response) {
             alert(response);
         });
@@ -104,13 +104,13 @@ angular.module("contactsApp", ['ngRoute'])
             $scope.contactFormUrl = "";
         }
 
-        $scope.saveContact = function(contact) {
-            Contacts.editContact(contact);
+        $scope.saveVin = function(vin) {
+            Vins.editVin(vin);
             $scope.editMode = false;
             $scope.contactFormUrl = "";
         }
 
-        $scope.deleteContact = function(contactId) {
-            Contacts.deleteContact(contactId);
+        $scope.deleteVin = function(vinId) {
+            Vins.deleteContact(vinId);
         }
     });
