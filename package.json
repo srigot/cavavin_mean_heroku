@@ -1,7 +1,7 @@
 {
-  "name": "MEAN",
-  "version": "1.0.0",
-  "description": "A MEAN app that allows users to manage contact lists",
+  "name": "MEAN_CAVAVIN",
+  "version": "0.0.1",
+  "description": "Application de gestion de cave a vin",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,19 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/chrisckchang/mean-contactlist.git"
+    "url": "https://github.com/srigot/cavavin_mean_heroku.git"
   },
   "keywords": [
     "MEAN",
     "Express",
     "Angular"
   ],
-  "author": "Chris Chang",
+  "author": "S. Rigot",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chrisckchang/mean-contactlist/issues"
+    "url": "https://github.com/srigot/cavavin_mean_heroku/issues"
   },
-  "homepage": "https://github.com/chrisckchang/mean-contactlist",
+  "homepage": "https://github.com/srigot/todo",
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
