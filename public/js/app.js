@@ -96,7 +96,7 @@ angular.module("contactsApp", ['ngRoute'])
 
         $scope.toggleEdit = function() {
             $scope.editMode = true;
-            $scope.contactFormUrl = "contact-form.html";
+            $scope.contactFormUrl = "vin-form.html";
         }
 
         $scope.back = function() {
