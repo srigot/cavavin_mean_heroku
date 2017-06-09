@@ -7,7 +7,11 @@ var ObjectID = mongodb.ObjectID;
 var VINS_COLLECTION = "vins" ;
 
 var app = express();
-app.use(allowCrossDomain);
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
@@ -39,6 +43,7 @@ function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
   res.status(code || 500).json({"error": message});
 }
+
 
 /*  "/vins"
  *    GET: finds all contacts
