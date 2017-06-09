@@ -108,7 +108,7 @@ app.put("/vins/:id", function(req, res) {
 });
 
 app.delete("/vins/:id", function(req, res) {
-  db.collection(CONTACTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+  db.collection(VINS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
     if (err) {
       handleError(res, err.message, "Impossible de supprimer le vin");
     } else {
