@@ -7,6 +7,7 @@ var ObjectID = mongodb.ObjectID;
 var VINS_COLLECTION = "vins" ;
 
 var app = express();
+app.use(allowCrossDomain);
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
