@@ -9,7 +9,7 @@ var should = chai.should();
 
 chai.use(chaiHttp);
 //Our parent block
-describe('Vins', () => {
+describe('Vins', function () {
 /*  beforeEach((done) => { //Before each test we empty the database
     db.collection(VINS_COLLECTION).deleteOne({}, (err) => {
       done();
@@ -18,7 +18,7 @@ describe('Vins', () => {
 /*
   * Test the /GET route
   */
-  describe('/GET Vins', () => {
+  describe('/GET Vins', function () {
       it('it should GET all the vins', (done) => {
         chai.request(server)
             .get('/vins')
