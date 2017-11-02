@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
 
-// Connect to the database before starting the application server. 
+// Connect to the database before starting the application server.
 mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
     console.log(err);
@@ -56,7 +56,7 @@ app.get("/vins", function(req, res) {
     if (err) {
       handleError(res, err.message, "Impossible de recuperer les vins.");
     } else {
-      res.status(200).json(docs);  
+      res.status(200).json(docs);
     }
   });
 });
@@ -89,7 +89,7 @@ app.get("/vins/:id", function(req, res) {
     if (err) {
       handleError(res, err.message, "Impossible de recuperer le fin");
     } else {
-      res.status(200).json(doc);  
+      res.status(200).json(doc);
     }
   });
 });
@@ -116,3 +116,5 @@ app.delete("/vins/:id", function(req, res) {
     }
   });
 });
+
+module.exports = app; // for testing
