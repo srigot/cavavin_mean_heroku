@@ -13,7 +13,10 @@ let options = {
               };
 
 //db connection
-mongoose.connect(process.env.MONGODB_URI, options);
+mongoose.connect(process.env.MONGODB_URI, {
+  keepAlive: true,
+  connectTimeoutMS: 30000
+});
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
@@ -39,7 +42,7 @@ app.route("/vin/:id")
     .delete(vin.deleteVin)
     .put(vin.updateVin);
 
-app.listen(port);
+app.listen(process.env.PORT || port);
 console.log("Listening on port " + port);
 
 module.exports = app; // for testing
