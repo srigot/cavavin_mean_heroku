@@ -3,6 +3,6 @@
   "description": "Une application qui permet aux utilisateurs de gerer sa cave a vin.",
   "repository": "https://github.com/srigot/cavavin_mean_heroku",
   "logo": "https://mlab.com/company/brand/resources/mLab-logo-onlight.png",
-  "keywords": ["node", "express", "angular", "MEAN", "mongodb", "REST", "API"],
+  "keywords": ["node", "express", "mongodb", "REST", "API"],
   "addons": ["mongolab"]
 }
