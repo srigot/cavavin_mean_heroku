@@ -10,9 +10,9 @@ var should = chai.should();
 
 chai.use(chaiHttp);
 //Our parent block
-describe('Vins', () => {
-  beforeEach((done) => { //Before each test we empty the database
-    vin.remove({}, (err) => {
+describe('Vins', function () {
+  beforeEach(function (done) { //Before each test we empty the database
+    vin.remove({}, function (err) {
       done();
     });
   });
@@ -35,8 +35,8 @@ describe('Vins', () => {
   /*
   * Test the /POST route
   */
-  describe('/POST Vins', () => {
-    it('it should not POST a book without pages field', (done) => {
+  describe('/POST Vins', function () {
+    it('it should not POST a book without pages field', function (done) {
       let vin = {
         nom: "Vin test",
         annee : 2010
@@ -44,12 +44,12 @@ describe('Vins', () => {
       chai.request(server)
         .post('/vins')
             .send(vin)
-            .end((err, res) => {
+            .end(function (err, res) {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('vin');
               done();
             });
-      });
     });
+  });
 });
