@@ -19,6 +19,7 @@ let VinSchema = new Schema(
     finTemp: { type: Number, required: false },
     categorie: { type: String, required: false },
     appellation: { type: String, required: false },
+    emplacements: [{ type: Schema.ObjectId, ref:'emplacement', childPath:'vin'}]
   },
   {
     versionKey: false

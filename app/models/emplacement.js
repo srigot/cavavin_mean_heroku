@@ -6,7 +6,7 @@ let EmplacementSchema = new Schema(
   {
     ligne: { type: String, required: true },
     colonne: { type: Number, required: true },
-    
+    vin : { type: Schema.ObjectId, ref:'vin', required:true }
   },
   {
     versionKey: false
