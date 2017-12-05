@@ -37,7 +37,7 @@ describe('Vins', function () {
   */
   describe('/POST Vins', function () {
     it('it should not POST a book without pages field', function (done) {
-      let vin = {
+      var vin = {
         nom: "Vin test",
         annee : 2010
       }
