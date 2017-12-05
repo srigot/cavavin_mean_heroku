@@ -14,9 +14,11 @@ let options = {
 
 //db connection
 mongoose.connect(process.env.MONGODB_URI, {
+  useMongoClient: true,
   keepAlive: true,
   connectTimeoutMS: 30000
 });
+mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
