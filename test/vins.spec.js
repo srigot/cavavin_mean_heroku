@@ -62,10 +62,7 @@ describe('Vins', function () {
   */
   describe('/POST Vins', function () {
     it('it should not POST a book without pages field', function (done) {
-      var vin = {
-        nom: "Vin test",
-        annee : 2010
-      }
+      var vin = require('./jdd/vin3.json')
       chai.request(server)
         .post('/vins')
             .send(vin)
