@@ -11,7 +11,7 @@ var should = chai.should();
 chai.use(chaiHttp);
 //Our parent block
 describe('Vins', function () {
-  beforeEach(function (done) { //Before each test we empty the database
+  before(function (done) { //Before each test we empty the database
     vin.remove({}, function (err) {
       done();
     });
@@ -21,16 +21,40 @@ describe('Vins', function () {
   * Test the /GET route
   */
   describe('/GET Vins', function () {
-      it('it should GET all the vins', function (done) {
-        chai.request(server)
-            .get('/vins')
-            .end(function (err, res) {
-                res.should.have.status(200);
-                res.body.should.be.a('array');
-                res.body.length.should.be.eql(0);
-              done();
-            });
+    it('it should GET all the vins', function (done) {
+      chai.request(server)
+      .get('/vins')
+      .end(function (err, res) {
+        res.should.have.status(200);
+        res.body.should.be.a('array');
+        res.body.length.should.be.eql(0);
+        done();
       });
+    });
+    it('it should GET list with one element', function (done) {
+      vin1.save().then(function(vin) {
+        chai.request(server)
+        .get('/vins')
+        .end(function (err, res) {
+          res.should.have.status(200);
+          res.body.should.be.a('array');
+          res.body.length.should.be.eql(0);
+          done();
+        });
+      });
+    });
+    it('it should GET list with two elements', function (done) {
+      vin2.save().then(function (res) {
+        chai.request(server)
+        .get('/vins')
+        .end(function (err, res) {
+          res.should.have.status(200);
+          res.body.should.be.a('array');
+          res.body.length.should.be.eql(0);
+          done();
+        });
+      });
+    });
   });
 
   /*
