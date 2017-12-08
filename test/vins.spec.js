@@ -16,7 +16,8 @@ describe('Vins', function () {
       done();
     });
   });
-/*
+
+ /*
   * Test the /GET route
   */
   describe('/GET Vins', function () {
