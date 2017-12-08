@@ -32,25 +32,25 @@ describe('Vins', function () {
       });
     });
     it('it should GET list with one element', function (done) {
-      vin1.save().then(function(vin) {
+      new vin(require('./jdd/vin1.json')).save().then(function(vin) {
         chai.request(server)
         .get('/vins')
         .end(function (err, res) {
           res.should.have.status(200);
           res.body.should.be.a('array');
-          res.body.length.should.be.eql(0);
+          res.body.length.should.be.eql(1);
           done();
         });
       });
     });
     it('it should GET list with two elements', function (done) {
-      vin2.save().then(function (res) {
+      new vin(require('./jdd/vin2.json')).save().then(function (res) {
         chai.request(server)
         .get('/vins')
         .end(function (err, res) {
           res.should.have.status(200);
           res.body.should.be.a('array');
-          res.body.length.should.be.eql(0);
+          res.body.length.should.be.eql(2);
           done();
         });
       });
