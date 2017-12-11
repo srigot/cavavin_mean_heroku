@@ -29,10 +29,14 @@ function postVin(req, res) {
     //Save it into the DB.
     newVin.save((err,vin) => {
         if(err) {
-            res.send(err);
+          if(err.name == 'ValidationError') {
+            res.status(400).json(err);
+          } else {
+            res.status(500).send(err);
+          }
         }
         else { //If no errors, send it back to the client
-            res.json({message: "Vin successfully added!", vin });
+            res.status(201).json({message: "Vin successfully added!", vin });
         }
     });
 }

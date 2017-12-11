@@ -67,19 +67,32 @@ describe('Vins', function () {
   * Test the /POST route
   */
   describe('/POST Vins', function () {
-    it('Add a vin in list', function (done) {
+    it('it should add a vin in list', function (done) {
       var vin = require('./jdd/vin3.json')
       chai.request(server)
-        .post('/vins')
-            .send(vin)
-            .end(function (err, res) {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                res.body.should.have.property('vin');
-                res.body.vin.nom.should.be.eql(vin.nom);
-                res.body.vin.annee.should.be.eql(vin.annee);
-              done();
-            });
+      .post('/vins')
+      .send(vin)
+      .end(function (err, res) {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('vin');
+        res.body.vin.nom.should.be.eql(vin.nom);
+        res.body.vin.annee.should.be.eql(vin.annee);
+        done();
+      });
     });
+    it('it shouldn\'t add a vin without a mandatory field', function(done) {
+      var vin = {nom: 'test'};
+      chai.request(server)
+      .post('/vins')
+      .send(vin)
+      .end(function (err, res) {
+        res.should.have.status(400);
+        done();
+      });
+    });
+  });
+
+  describe('/PUT Vins', function () {
   });
 });
