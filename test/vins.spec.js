@@ -40,8 +40,8 @@ describe('Vins', function () {
           res.should.have.status(200);
           res.body.should.be.a('array');
           res.body.length.should.be.eql(1);
-	  res.body[0].nom.should.be.eql(vin1.nom);
-	  res.body[0].annee.should.be.eql(vin1.annee);
+          res.body[0].nom.should.be.eql(vin1.nom);
+          res.body[0].annee.should.be.eql(vin1.annee);
           done();
         });
       });
@@ -56,7 +56,7 @@ describe('Vins', function () {
           res.body.should.be.a('array');
           res.body.length.should.be.eql(2);
           res.body[1].nom.should.be.eql(vin2.nom);
-	  res.body[1].annee.should.be.eql(vin2.annee);
+          res.body[1].annee.should.be.eql(vin2.annee);
           done();
         });
       });
@@ -76,8 +76,8 @@ describe('Vins', function () {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('vin');
-		res.body.vin.nom.should.be.eql(vin.nom);
-		res.body.vin.annee.should.be.eql(vin.annee);
+                res.body.vin.nom.should.be.eql(vin.nom);
+                res.body.vin.annee.should.be.eql(vin.annee);
               done();
             });
     });
