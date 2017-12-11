@@ -67,7 +67,7 @@ describe('Vins', function () {
   * Test the /POST route
   */
   describe('/POST Vins', function () {
-    it('it should not POST a book without pages field', function (done) {
+    it('Add a vin in list', function (done) {
       var vin = require('./jdd/vin3.json')
       chai.request(server)
         .post('/vins')
@@ -76,6 +76,8 @@ describe('Vins', function () {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('vin');
+		res.body.vin.nom.should.be.eql(vin.nom);
+		res.body.vin.annee.should.be.eql(vin.annee);
               done();
             });
     });
