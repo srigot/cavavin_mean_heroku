@@ -94,5 +94,40 @@ describe('Vins', function () {
   });
 
   describe('/PUT Vins', function () {
+    it('should update a existing vin', function (done) {
+      let vin1 = require('./jdd/vin1.json');
+      vin.find({nom:vin1.nom}).exec(function(err,res) {
+        let vinTmp = res[0] ;
+        vinTmp.nom = 'testUpdate';
+        chai.request(server)
+        .put('/vin/' + vinTmp._id)
+        .send(vinTmp)
+        .end(function (err, res) {
+          res.should.have.status(200);
+          res.body.should.have.property('vin');
+          res.body.vin.nom.should.be.eql(vinTmp.nom);
+          res.body.vin.annee.should.be.eql(vinTmp.annee);
+          done();
+        });
+      });
+    });
+    it('shouldn\'t update if id is non set', function (done) {
+      chai.request(server)
+      .put('/vin')
+      .send({_id:123, nom:'AAA', annee:2010})
+      .end(function (err, res) {
+        res.should.have.status(404);
+        done();
+      });
+    });
+    it('shouldn\'t update if id is not existing', function (done) {
+      chai.request(server)
+      .put('/vin/123')
+      .send({_id:123, nom:'AAA', annee:2010})
+      .end(function (err, res) {
+        res.should.have.status(404);
+        done();
+      });
+    });
   });
 });

@@ -65,13 +65,19 @@ function deleteVin(req, res) {
  * PUT /vin/:id to updatea a vin given its id
  */
 function updateVin(req, res) {
-    Vin.findById({_id: req.params.id}, (err, vin) => {
-        if(err) res.send(err);
-        Object.assign(vin, req.body).save((err, vin) => {
-            if(err) res.send(err);
-            res.json({ message: 'Vin updated!', vin });
-        });
-    });
+  Vin.findById({_id: req.params.id}, (err, vin) => {
+    if(err) {
+      res.status(404).send(err);
+    } else {
+      Object.assign(vin, req.body).save((err, vin) => {
+        if(err) {
+          res.status(400).send(err);
+        } else {
+          res.json({ message: 'Vin updated!', vin });
+        }
+      });
+    }
+  });
 }
 
 //export all the functions
