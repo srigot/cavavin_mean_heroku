@@ -7,6 +7,7 @@ var chaiHttp = require('chai-http')
 var server = require('../server')
 var Emplacement = require('../app/models/emplacement')
 var Vin = require('../app/models/vin')
+var should = chai.should()
 
 chai.use(chaiHttp)
 //Our parent block
@@ -71,7 +72,6 @@ describe('Emplacements', function () {
           .send(empl)
           .end(function (err, res) {
             res.should.have.status(200)
-            console.log(JSON.stringify(res))
             res.body.should.be.a('object')
             res.body.should.have.property('vin')
             done()
