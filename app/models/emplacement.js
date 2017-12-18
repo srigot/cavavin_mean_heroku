@@ -1,5 +1,5 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+let mongoose = require('mongoose')
+let Schema = mongoose.Schema
 
 //book schema definition
 let EmplacementSchema = new Schema(
@@ -11,8 +11,8 @@ let EmplacementSchema = new Schema(
   {
     versionKey: false
   }
-);
+)
 
 
 //Exports the BookSchema for use elsewhere.
-module.exports = mongoose.model('emplacement', EmplacementSchema);
+module.exports = mongoose.model('emplacement', EmplacementSchema)

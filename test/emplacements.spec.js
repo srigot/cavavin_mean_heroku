@@ -7,7 +7,7 @@ var chaiHttp = require('chai-http')
 var server = require('../server')
 var Emplacement = require('../app/models/emplacement')
 var Vin = require('../app/models/vin')
-var should = chai.should()
+global.should = chai.should()
 
 chai.use(chaiHttp)
 //Our parent block

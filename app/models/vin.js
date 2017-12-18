@@ -1,5 +1,5 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+let mongoose = require('mongoose')
+let Schema = mongoose.Schema
 
 //book schema definition
 let VinSchema = new Schema(
@@ -24,8 +24,8 @@ let VinSchema = new Schema(
   {
     versionKey: false
   }
-);
+)
 
 
 //Exports the BookSchema for use elsewhere.
-module.exports = mongoose.model('vin', VinSchema);
+module.exports = mongoose.model('vin', VinSchema)
