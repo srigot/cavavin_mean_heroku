@@ -1,4 +1,5 @@
 let mongoose = require('mongoose');
+let Vin = require('../models/vin');
 let Emplacement = require('../models/emplacement');
 
 
@@ -7,11 +8,10 @@ let Emplacement = require('../models/emplacement');
  */
 function getEmplacements(req, res) {
     //Query the DB and if no errors, send all the vins
-    let query = Emplacement.find({});
-    query.exec((err, emplacements) => {
-        if(err) res.send(err);
-        //If no errors, send them back to the client
-        res.json(emplacements);
+    Emplacement.find({}).exec().then(emplacements => {
+      res.json(emplacements);
+    }).catch(err => {
+      res.status(400).send(err);
     });
 }
 
@@ -19,18 +19,28 @@ function getEmplacements(req, res) {
  * ADD emplacement to add a new emplacement
  */
 function addEmplacement(req, res) {
-    //Creates a new vin
-    var newEmplacement = new Emplacement(req.body);
-
-    //Save it into the DB.
-    newEmplacement.save((err,emplacement) => {
+  Vin.findById({_id: req.params.id}, (err, vin) => {
+    if(err) {
+      res.status(404).send(err);
+    } else {
+      //Creates a new Emplacement
+      var newEmplacement = new Emplacement(req.body);
+      newEmplacement.vin = vin ;
+      //Save it into the DB.
+      newEmplacement.save((err,emplacement) => {
         if(err) {
-            res.send(err);
+          res.send(err);
+        } else { //If no errors, send it back to the client
+          vin.emplacements.push(emplacement._id);
+          vin.save().then(vin => {
+            res.json({message: "Emplacement successfully added!", vin });
+          }).catch(err => {
+            res.status(400).send(err);
+          });
         }
-        else { //If no errors, send it back to the client
-            res.json({message: "Emplacement successfully added!", emplacement });
-        }
-    });
+      });
+    }
+  });
 }
 
 /*
@@ -41,3 +51,5 @@ function deleteEmplacement(req, res) {
         res.json({ message: "Emplacement successfully deleted!", result });
     });
 }
+
+module.exports = { getEmplacements, addEmplacement, deleteEmplacement }

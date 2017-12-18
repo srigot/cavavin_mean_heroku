@@ -15,4 +15,4 @@ let EmplacementSchema = new Schema(
 
 
 //Exports the BookSchema for use elsewhere.
-module.exports = mongoose.model('emplacement', VinSchema);
+module.exports = mongoose.model('emplacement', EmplacementSchema);

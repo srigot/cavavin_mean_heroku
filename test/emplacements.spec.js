@@ -1,5 +1,5 @@
 //During the test the env variable is set to test
-//process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'test';
 
 //Require the dev-dependencies
 var chai = require('chai');
@@ -13,6 +13,7 @@ chai.use(chaiHttp);
 //Our parent block
 describe('Emplacements', function () {
   before(function (done) { //Before each test we empty the database
+    Vin.remove({})
     new Vin(require('./jdd/vin1.json')).save()
     new Vin(require('./jdd/vin2.json')).save()
     Emplacement.remove({}, function (err) {
@@ -64,18 +65,18 @@ describe('Emplacements', function () {
   * Test the /POST route
   */
   describe('/POST Emplacements', function () {
-    it('it should not POST a book without pages field', function (done) {
+    it('it should add an emplacement when vin identified by id', function (done) {
       var empl = require('./jdd/empl1.json')
       let vin1 = require('./jdd/vin1.json');
-      vin.find({nom:vin1.nom}).exec(function(err,res) {
-        empl.vin = res ;
+      Vin.find({nom:vin1.nom}).exec(function(err,res) {
         chai.request(server)
-          .post('/emplacements')
+          .post('/vin/' + res[0]._id + '/emplacement')
           .send(empl)
           .end(function (err, res) {
             res.should.have.status(200);
+            console.log(JSON.stringify(res));
             res.body.should.be.a('object');
-            res.body.should.have.property('emplacement');
+            res.body.should.have.property('vin');
             done();
         });
       });

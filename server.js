@@ -5,6 +5,7 @@ let morgan = require('morgan');
 let bodyParser = require('body-parser');
 let port = 8080;
 let vin = require('./app/routes/vin');
+let emplacement = require('./app/routes/emplacement');
 let config = require('config'); //we load the db location from the JSON files
 //db options
 let options = {
@@ -50,6 +51,10 @@ app.route("/vin/:id")
     .get(vin.getVin)
     .delete(vin.deleteVin)
     .put(vin.updateVin);
+app.route("/emplacements")
+  .get(emplacement.getEmplacements)
+app.route("/vin/:id/emplacement")
+  .post(emplacement.addEmplacement);
 
 app.listen(process.env.PORT || port);
 console.log("Listening on port " + port);
