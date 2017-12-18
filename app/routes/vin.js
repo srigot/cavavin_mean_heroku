@@ -5,7 +5,7 @@ let Vin = require('../models/vin')
  */
 function getVins(req, res) {
   //Query the DB and if no errors, send all the vins
-  Vin.find({}).exec().then(vins => {
+  Vin.find({}).populate('emplacements').exec().then(vins => {
     res.json(vins)
   }).catch(err => {
     res.send(err)

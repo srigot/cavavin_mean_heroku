@@ -25,7 +25,12 @@ function addEmplacement(req, res) {
     newEmplacement.save().then(emplacement => {
       vin.emplacements.push(emplacement._id)
       vin.save().then(vin => {
-        res.json({message: 'Emplacement successfully added!', vin })
+        vin.populate('emplacements').execPopulate().then(() => {
+          res.json({message: 'Emplacement successfully added!', vin })
+        }).catch(err => {
+console.log(JSON.stringify(err))
+          res.status(400).send(err)
+        })
       }).catch(err => {
         res.status(400).send(err)
       })

@@ -4,7 +4,7 @@
   "description": "Application de gestion de cave a vin",
   "main": "server.js",
   "scripts": {
-    "test": "npm run lint && mocha --timeout 10000",
+    "test": "mocha --timeout 10000",
     "start": "node server.js",
     "lint": "eslint --ext .js ."
   },

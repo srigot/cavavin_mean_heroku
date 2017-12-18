@@ -5,14 +5,15 @@ process.env.NODE_ENV = 'test'
 var chai = require('chai')
 var chaiHttp = require('chai-http')
 var server = require('../server')
-var vin = require('../app/models/vin')
+var Vin = require('../app/models/vin')
+var Emplacement = require('../app/models/emplacement')
 global.should = chai.should()
 
 chai.use(chaiHttp)
 //Our parent block
 describe('Vins', function () {
   before(function (done) { //Before each test we empty the database
-    vin.remove({}).then(() => {done()})
+    Vin.remove({}).then(() => {done()})
   })
 
   /*
@@ -31,22 +32,30 @@ describe('Vins', function () {
     })
     it('it should GET list with one element', function (done) {
       let vin1 = require('./jdd/vin1.json')
-      new vin(vin1).save().then(function() {
-        chai.request(server)
-          .get('/vins')
-          .end(function (err, res) {
-            res.should.have.status(200)
-            res.body.should.be.a('array')
-            res.body.length.should.be.eql(1)
-            res.body[0].nom.should.be.eql(vin1.nom)
-            res.body[0].annee.should.be.eql(vin1.annee)
-            done()
+      let empl1 = require('./jdd/empl1.json')
+      new Vin(vin1).save().then(function(vin) {
+        new Emplacement({...empl1, vin : vin._id}).save().then(function(empl) {
+          vin.emplacements.push(empl._id)
+          vin.save().then(function() {
+            chai.request(server)
+            .get('/vins')
+            .end(function (err, res) {
+              res.should.have.status(200)
+              res.body.should.be.a('array')
+              res.body.length.should.be.eql(1)
+              res.body[0].nom.should.be.eql(vin1.nom)
+              res.body[0].annee.should.be.eql(vin1.annee)
+              res.body[0].emplacements.length.should.be.eql(1)
+              res.body[0].emplacements[0].should.have.property('rangee')
+              done()
+            })
           })
+        })
       })
     })
     it('it should GET list with two elements', function (done) {
       let vin2 = require('./jdd/vin2.json')
-      new vin(vin2).save().then(function () {
+      new Vin(vin2).save().then(function () {
         chai.request(server)
           .get('/vins')
           .end(function (err, res) {
@@ -94,7 +103,7 @@ describe('Vins', function () {
   describe('/PUT Vins', function () {
     it('should update a existing vin', function (done) {
       let vin1 = require('./jdd/vin1.json')
-      vin.find({nom:vin1.nom}).exec(function(err,res) {
+      Vin.find({nom:vin1.nom}).exec(function(err,res) {
         let vinTmp = res[0]
         vinTmp.nom = 'testUpdate'
         chai.request(server)
