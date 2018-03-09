@@ -53,9 +53,15 @@ function getVin(req, res) {
  * DELETE /vin/:id to delete a vin given its id.
  */
 function deleteVin(req, res) {
-  Vin.remove({_id : req.params.id}, (err, result) => {
-    res.json({ message: 'Vin successfully deleted!', result })
-  })
+  if (req.params.id == 'ALL') {
+    Vin.remove((err, result) => {
+      res.json({ message: 'ALL DELETED !', result })
+    })
+  } else {
+    Vin.remove({_id : req.params.id}, (err, result) => {
+      res.json({ message: 'Vin successfully deleted!', result })
+    })
+  }
 }
 
 /*
