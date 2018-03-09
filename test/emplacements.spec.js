@@ -73,7 +73,9 @@ describe('Emplacements', function () {
           .end(function (err, res) {
             res.should.have.status(200)
             res.body.should.be.a('object')
-            res.body.should.have.property('vin')
+            res.body.vin.should.have.property('emplacements')
+            res.body.vin.emplacements.length.should.be.eql(1)
+            res.body.vin.emplacements[0].should.have.property('rangee')
             done()
           })
       })
